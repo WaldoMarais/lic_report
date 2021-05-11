@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Bash Runner for Local Report Generation - Linux & Mac
+
+## TODO - Might look at https://www.npmjs.com/package/node-docker-api
+
+if `which docker > /dev/null`; then
+	if [ "$(docker ps -a | grep lic_report)" ]; then 
+		# cleanup
+    docker rm lic_report
+	fi
+	
+	if [ $# -eq 0 ]; then
+			# docker run --name lic_report -v $PWD:/scandir -it mantisware/lic_report 
+			# docker run --name lic_report -v $PWD:/scandir -it mantisware/lic_report /bin/bash -lc "cd /scandir && ./scripts/report"
+			docker run --name lic_report -v $PWD:/scandir -it mantisware/lic_report /bin/bash -lc "cd /scandir && node ./lib/run.js"
+	else
+		if [ "$1" == "clean" ]; then
+			docker run --name lic_report -v $PWD:/scandir -it mantisware/lic_report /bin/bash -lc "cd /scandir && node ./lib/clean.js && node ./lib/run.js"
+		else 
+			docker run --name lic_report -v $PWD:/scandir -it mantisware/lic_report /bin/bash -lc "cd /scandir && `echo $@`"
+		fi
+	fi
+	# Remove container when stopped
+	# docker container rm $(docker container ls –aq)
+else
+  echo "You do not have docker installed. Please install it:"
+  echo "    https://docs.docker.com/engine/installation/"
+  exit 1
+fi

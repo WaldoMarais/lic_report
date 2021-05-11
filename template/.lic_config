@@ -1,0 +1,63 @@
+{
+  "type": "html",
+  "path": "./LicenseReports",
+  "github": {
+    "enabled": true,
+    "user": {
+      "name": "test",
+      "email": "test@test.com"
+    },
+    "repo": "git@github.com:WaldoMarais/testDockerActions.git",
+    "ssh_key": {
+      "pub": "id_rsa.pub",
+      "pvt": "id_rsa"
+    },
+    "branch": "lic_report"
+  },
+  "githubPages": {
+    "enabled": true
+  },
+  "styling": [
+    "custom.css"
+  ],
+  "ssh": {
+    "enabled": true,
+    "auth": {
+      "host": "localhost",
+      "username": "steel",
+      "password": ""
+    },
+    "path":"/path/to/folder"
+  },
+  "licenses": {
+    "whiteList": [
+      "MIT"
+    ],
+    "blackList": [
+      "Apache 2.0"
+    ]
+  },
+  "dependencies": [
+    "express",
+    "mongo"
+  ],
+  "notifications": {
+    "email": {
+      "enabled": true,
+      "from": "LicenseReport <no-reply@fullstacklabs.co>",
+      "subject": "License Report",
+      "recipients": ["waldo@fullstacklabs.co"],
+      "server": {
+        "smtp": {
+          "host": "smtp.sendgrid.net",
+          "port": "587",
+          "secure": false
+        },
+        "auth": {
+          "user": "apikey",
+          "pass": "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"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+on: [push]
+
+jobs:
+  lic_report:
+    runs-on: ubuntu-latest
+    name: License Report
+    steps:
+    - name: Licenses Report Action Step
+      id: lic_report
+      uses: <Project Github URL> #WaldoMarais/testDockerActions@v1
+    # Use the output from the `hello` step
+    - name: Get the output status
+      run: echo "The report was ${{ steps.hello.outputs.time }}"

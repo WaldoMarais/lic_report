@@ -1,0 +1,16 @@
+# lic_action.yml
+name: 'License Report'
+description: 'Generate project license report'
+inputs:
+  format:  # id of input
+    description: 'Report format Test'
+    required: true
+    default: 'html'
+outputs:
+  message: # id of output
+    description: 'Was the report generation successful'
+runs:
+  using: 'docker'
+  image: 'docker://mantisware/lic_report:latest' #'Dockerfile'
+  args:
+    - ${{ inputs.format }}
