@@ -2,7 +2,7 @@
   "type": "html",
   "path": "./LicenseReports",
   "github": {
-    "enabled": true,
+    "enabled": false,
     "user": {
       "name": "test",
       "email": "test@test.com"
@@ -15,16 +15,16 @@
     "branch": "lic_report"
   },
   "githubPages": {
-    "enabled": true
+    "enabled": false
   },
   "styling": {
-    "enabled": true,
+    "enabled": false,
     "files": [
       "custom.css"
     ]
   },
   "ssh": {
-    "enabled": true,
+    "enabled": false,
     "auth": {
       "host": "localhost",
       "username": "steel",

@@ -95,6 +95,7 @@ module.exports = async function (appPath = '') {
     // no need to log
   }
   
+  console.log('[🚀 RUN] : ', appPath);
 
   let commandArgs = ['run', '--name', 'lic_report', '-v', `${appPath}:/scandir`, '-i', 'mantisware/lic_report'];
   switch(platform){
