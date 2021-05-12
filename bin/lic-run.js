@@ -11,15 +11,10 @@ var os = require('os');
 var path = require('path');
 var platform = os.platform();
 const fs = require('fs-extra');
-const { exec } = require('child_process');
+const { exec, spawn } = require('child_process');
 
 // Public
-const {cyan} = require('chalk');
-const ora = require('ora');
 const shell = require('shelljs');
-
-// Local dependencies.
-const packageJSON = require('../package.json');
 
 /**
  * `$ lic_report run`
@@ -27,18 +22,46 @@ const packageJSON = require('../package.json');
  * Run License Report
  */
 
- const run = async (cmd, msg) => {
+ const run_script = (command, args, callback) => {
+  console.log("Starting Process.");
+  var child = spawn(command, args);
+
+  var scriptOutput = "";
+
+  // Piped directly
+  child.stdout.pipe(process.stdout);
+  child.stderr.pipe(process.stderr);
+
+  // child.stdout.setEncoding('utf8');
+  // child.stdout.on('data', function(data) {
+  //     console.log('stdout: ' + data);
+
+  //     data=data.toString();
+  //     scriptOutput+=data;
+  // });
+
+  // child.stderr.setEncoding('utf8');
+  // child.stderr.on('data', function(data) {
+  //     console.log('stderr: ' + data);
+
+  //     data=data.toString();
+  //     scriptOutput+=data;
+  // });
+
+  child.on('close', function(code) {
+      callback(scriptOutput,code);
+  });
+}
+
+const run_script_shell = (command, args, callback) => {
+  let cmd = `${command} ${args.join(' ')}`;
+  callback(shell.exec(cmd));
+}
+
+ const run = async (cmd, args) => {
   return await new Promise((res, rej) => {
-    exec(`${cmd}`, (err, stdout, stderr) => {
-      if (err) {
-        console.error('[❌ RUN] ', err);
-        rej(err);
-      } else {
-        if(msg){
-          console.log(`[🚀 RUN] ${msg}`);
-        }
-        res(`${stdout} ${stderr}`);
-      }
+    run_script_shell(`${cmd}`, args, (sout, code)=>{
+      res(code);
     });
   });
 }
@@ -63,22 +86,26 @@ module.exports = async function (appPath = '') {
 
   // Make sure the container is not running
   try{
-    await run('docker rm lic_report', 'License Report...');
+    await new Promise((res, rej) => {
+      exec('docker rm lic_report', (/*err, stdout, stderr*/) => {
+        res(true);
+      });
+    });
   } catch(err){
     // no need to log
   }
   
 
-  let command = `docker run --name lic_report -v ${appPath}:/scandir -i mantisware/lic_report`;
+  let commandArgs = ['run', '--name', 'lic_report', '-v', `${appPath}:/scandir`, '-i', 'mantisware/lic_report'];
   switch(platform){
     case 'win32' :
       console.error('Still working on this platform ;)');
       break;
     case 'linux' :
-        await run(command, 'License Report...');
+        await run('docker', commandArgs, 'License Report...');
         break;
     case 'darwin' :
-        await run(command, 'License Report...');
+        await run('docker', commandArgs, 'License Report...');
       break;
 
     default:

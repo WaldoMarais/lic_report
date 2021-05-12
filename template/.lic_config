@@ -7,7 +7,7 @@
       "name": "test",
       "email": "test@test.com"
     },
-    "repo": "git@github.com:WaldoMarais/testDockerActions.git",
+    "repo": "git@github.com:test/test.git",
     "ssh_key": {
       "pub": "id_rsa.pub",
       "pvt": "id_rsa"
@@ -17,9 +17,12 @@
   "githubPages": {
     "enabled": true
   },
-  "styling": [
-    "custom.css"
-  ],
+  "styling": {
+    "enabled": true,
+    "files": [
+      "custom.css"
+    ]
+  },
   "ssh": {
     "enabled": true,
     "auth": {
@@ -43,19 +46,19 @@
   ],
   "notifications": {
     "email": {
-      "enabled": true,
+      "enabled": false,
       "from": "LicenseReport <no-reply@fullstacklabs.co>",
       "subject": "License Report",
       "recipients": ["waldo@fullstacklabs.co"],
       "server": {
         "smtp": {
-          "host": "smtp.sendgrid.net",
+          "host": "smtp.test.net",
           "port": "587",
           "secure": false
         },
         "auth": {
-          "user": "apikey",
-          "pass": "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"
+          "user": "username",
+          "pass": "password"
         }
       }
     }

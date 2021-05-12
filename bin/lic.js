@@ -40,6 +40,12 @@ program
   .description('output your version of License Reporter')
   .action(() => { console.log(packageJSON.version); });
 
+// `$ lic_report config`
+program
+  .command('config')
+  .description('created template config file')
+  .action(require('./lic-config'));
+
 // TODO: `$ lic_report plugins`
 // program
 //   .command('plugins')
@@ -77,17 +83,17 @@ program
  * Normalize help argument
  */
 
-// `$ lic_report help` (--help synonym)
-program
-  .command('help')
-  .description('output the help')
-  .action(program.usageMinusWildcard);
+// TODO: `$ lic_report help` (--help synonym)
+// program
+//   .command('help')
+//   .description('output the help')
+//   .action(program.usageMinusWildcard);
 
-// `$ lic_report <unrecognized_cmd>`
-// Mask the '*' in `help`.
-program
-  .command('*')
-  .action(program.usageMinusWildcard);
+// // `$ lic_report <unrecognized_cmd>`
+// // Mask the '*' in `help`.
+// program
+//   .command('*')
+//   .action(program.usageMinusWildcard);
 
 // Don't balk at unknown options.
 
