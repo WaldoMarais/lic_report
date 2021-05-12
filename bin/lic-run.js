@@ -43,7 +43,7 @@ const packageJSON = require('../package.json');
   });
 }
 
-module.exports = async function (plugin, cliArguments) {
+module.exports = async function (appPath = '') {
   // Check Supported Platforms
   if (platform !== 'linux' && platform !== 'darwin' && platform !== 'win32') {
     console.error('Unsupported platform.');
@@ -57,15 +57,28 @@ module.exports = async function (plugin, cliArguments) {
   }
 
   let exePath = path.join(__dirname, 'lic');
+  if(!fs.existsSync(appPath)){
+    appPath = path.join(process.cwd(), appPath);
+  }
+
+  // Make sure the container is not running
+  try{
+    await run('docker rm lic_report', 'License Report...');
+  } catch(err){
+    // no need to log
+  }
+  
+
+  let command = `docker run --name lic_report -v ${appPath}:/scandir -i mantisware/lic_report`;
   switch(platform){
     case 'win32' :
       console.error('Still working on this platform ;)');
       break;
     case 'linux' :
-        await run(`./${exePath}`, 'License Report...');
+        await run(command, 'License Report...');
         break;
     case 'darwin' :
-        await run(`./${exePath}`, 'License Report...');
+        await run(command, 'License Report...');
       break;
 
     default:

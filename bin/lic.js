@@ -51,6 +51,13 @@ program
   .command('run [appPath]')
   .description('start your License Reporter application')
   .action((appPath) => {
+    if(!appPath){
+      appPath = process.cwd();
+    }
+    if(appPath && (appPath === '.' || appPath === ' ')){
+      appPath = process.cwd();
+    }
+    console.log('[appPath] ', appPath);
     require('./lic-run')(appPath);
   });
 
