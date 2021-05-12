@@ -11,7 +11,7 @@
   "author": "Waldo Marais",
   "license": "ISC",
   "bin": {
-    "lic_report": "bin/lic.js"
+    "lic_report": "./bin/lic.js"
   },
   "directories": {
     "lib": "./lib",

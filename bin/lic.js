@@ -40,11 +40,11 @@ program
   .description('output your version of License Reporter')
   .action(() => { console.log(packageJSON.version); });
 
-// `$ lic_report plugins`
-program
-  .command('plugins')
-  .description('show available License Reporter plugins')
-  .action(require('./lic-plugins'));
+// TODO: `$ lic_report plugins`
+// program
+//   .command('plugins')
+//   .description('show available License Reporter plugins')
+//   .action(require('./lic-plugins'));
 
 // `$ lic_report run`
 program
@@ -54,17 +54,17 @@ program
     require('./lic-run')(appPath);
   });
 
-// `$ lic_report config:github`
-program
-  .command('config:github <id> [attributes...]')
-  .option('-t, --tpl <template>', 'template name')
-  .option('-a, --api <api>', 'API name to generate a sub API')
-  .option('-p, --plugin <plugin>', 'plugin name to generate a sub API')
-  .description('generate a basic API')
-  .action((id, attributes, cliArguments) => {
-    cliArguments.attributes = attributes;
-    require('./lic-config')(id, cliArguments);
-  });
+// TODO: `$ lic_report config:github`
+// program
+//   .command('config:github <id> [attributes...]')
+//   .option('-t, --tpl <template>', 'template name')
+//   .option('-a, --api <api>', 'API name to generate a sub API')
+//   .option('-p, --plugin <plugin>', 'plugin name to generate a sub API')
+//   .description('generate a basic API')
+//   .action((id, attributes, cliArguments) => {
+//     cliArguments.attributes = attributes;
+//     require('./lic-config')(id, cliArguments);
+//   });
 
 /**
  * Normalize help argument
