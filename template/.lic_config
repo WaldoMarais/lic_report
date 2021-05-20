@@ -1,5 +1,6 @@
 {
   "type": "html",
+  "name": "[Project Name to Display]",
   "path": "./LicenseReports",
   "github": {
     "enabled": false,

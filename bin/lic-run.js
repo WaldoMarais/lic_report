@@ -79,7 +79,7 @@ module.exports = async function (appPath = '') {
     process.exit(1);
   }
 
-  let exePath = path.join(__dirname, 'lic');
+  // let exePath = path.join(__dirname, 'lic');
   if(!fs.existsSync(appPath)){
     appPath = path.join(process.cwd(), appPath);
   }

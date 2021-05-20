@@ -1,11 +1,11 @@
 {
   "name": "lic_report",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Generate license report and html dashboard",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "licReport": "./lic",
+    "start": "node bin/lic.js",
     "deploy": "npm publish",
     "postinstall": "node lib/setup.js"
   },

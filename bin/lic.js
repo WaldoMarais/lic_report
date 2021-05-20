@@ -46,6 +46,29 @@ program
   .description('created template config file')
   .action(require('./lic-config'));
 
+// `$ lic_report actions`
+program
+.command('actions [actionType]')
+.description('created actions config file for type (github, gitlab, circleci)')
+.action((actionType) => {
+  if(actionType){
+    switch(actionType.toLocaleLowerCase()){
+      case 'github':
+        require('./configs/github');
+        break;
+      case 'gitlab':
+        console.log('\t## Sorry, we\'re still working on this functionality ##');
+        break;
+      case 'circleci':
+        console.log('\t## Sorry, we\'re still working on this functionality ##');
+        break;
+    }
+  } else {
+    console.log('\t## Using default Github ##');
+    require('./configs/github');
+  }
+});
+
 // TODO: `$ lic_report plugins`
 // program
 //   .command('plugins')
